@@ -11,6 +11,8 @@ def create_triangle(n: int) -> Optional[str]:
 
     format_specifier = f'{{:{negative}<{n}}}'
     lines = [format_specifier.format(fill*i) for i in range(1, n+1)]
+    # leading newline
+    lines.append('')
     return '\n'.join(lines)
 
 
