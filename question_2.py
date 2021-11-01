@@ -2,18 +2,29 @@ import time
 from typing import Optional
 
 
+HOUR_SECONDS = 60 * 60
+
+
 def seconds_to_time(time_seconds: int) -> Optional[str]:
-    max = 359999
-    if time_seconds > max:
+    max_seconds = 359999
+    if time_seconds > max_seconds:
         return
 
-    # match desired output with behaivour of time module
-    time_seconds += 1
+    if time_seconds >= HOUR_SECONDS:
+        time_format = '%H:%M:%S'
+        # match desired output with behaivour of time module
+        time_seconds += 1
+    else:
+        time_format = '%M:%S'
 
     time_tuple = time.gmtime(time_seconds)
-    return time.strftime('%H:%M:%S', time_tuple)
+    return time.strftime(time_format, time_tuple)
 
 
 if __name__ == '__main__':
     print(seconds_to_time(3624))
     print(seconds_to_time(85))
+    print(seconds_to_time(16))
+
+    print(seconds_to_time(0))
+    print(seconds_to_time(1))
