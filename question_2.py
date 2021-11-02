@@ -22,7 +22,7 @@ def seconds_to_time(time_seconds: int) -> Optional[str]:
 
 
 if __name__ == '__main__':
-    print(seconds_to_time(3624))
+    print(seconds_to_time(3625))
     print(seconds_to_time(85))
     print(seconds_to_time(16))
 
