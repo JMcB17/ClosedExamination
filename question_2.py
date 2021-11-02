@@ -1,24 +1,26 @@
-import time
+import datetime
 from typing import Optional
 
 
 HOUR_SECONDS = 60 * 60
 
 
+# parameter renamed from time to time_seconds
+# to avoid collision with standard library
 def seconds_to_time(time_seconds: int) -> Optional[str]:
     max_seconds = 359999
     if time_seconds > max_seconds:
         return
 
-    if time_seconds >= HOUR_SECONDS:
+    if time_seconds > HOUR_SECONDS:
         time_format = '%H:%M:%S'
         # match desired output with behaivour of time module
-        time_seconds += 1
+        # time_seconds += 1
     else:
         time_format = '%M:%S'
 
-    time_tuple = time.gmtime(time_seconds)
-    return time.strftime(time_format, time_tuple)
+    time_delta = datetime.timedelta(seconds=time_seconds)
+    return time_delta.strftime(time_format)
 
 
 if __name__ == '__main__':
