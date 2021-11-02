@@ -2,7 +2,12 @@ from typing import Optional
 
 
 def create_triangle(n: int) -> Optional[str]:
-    """Return a string representing a triangle n levels high when printed."""
+    """Create triangle of text with height and width n.
+    
+    When given an integer n, returns a string representing a triangle n levels high 
+    when printed. To draw the triangle use the - and x characters.
+    If n = 0, the function returns an empty string, if n is not positive it returns None.
+    """
     fill = 'x'
     negative = '-'
 
