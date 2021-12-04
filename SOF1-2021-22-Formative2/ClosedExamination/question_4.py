@@ -8,11 +8,16 @@ def rodCutting(prices: dict[int, int], length: int) -> list[int]:
         if not 0 <= value:
             raise ValueError('All prices and length must be positive.')
 
+    # base case
     if not length:
         return []
     
-    q = float('-inf')
+    cuts = []
     for i in range(1, length + 1):
         if i in prices:
-            q = max(q, prices[i] + rodCutting(prices, length - i))
-    return q
+            alt_cuts = [i] + rodCutting(prices, length - i)
+            # what
+            if sum([prices[size] for size in alt_cuts]) > sum([prices[size] for size in cuts]):
+                cuts = alt_cuts
+
+    return cuts
