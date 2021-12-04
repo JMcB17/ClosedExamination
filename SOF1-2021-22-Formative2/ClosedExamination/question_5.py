@@ -1,5 +1,6 @@
 # just use matplotlib loll
 
+
 # showing off
 class MarkRange():
     def __init__(self, min: int, bin_size: int):
@@ -11,6 +12,18 @@ class MarkRange():
 
     def __contains(self, item):
         return self.min <= item >= self.max
+
+    def count(self, marks_dwindling: list[int]) -> int:
+        """MUTATES"""
+        count = 0
+        # reverse iteration for in-place list editing
+        for i in range(len(marks_dwindling), 0, -1):
+            if mark in self:
+                count += 1
+                marks_dwindling.pop(i)
+
+        return count
+
 
 class MarkDistribution:
     def __init__(self, mark_min: int = 0, mark_max: int = 100):
@@ -29,28 +42,20 @@ class MarkDistribution:
             else:
                 self._marks.append(mark)
 
-    def _count_in_range(marks_dwindling: list[int], mark_range: MarkRange) -> int:
-        count = 0
-        # reverse iteration for in-place list editing
-        for i in range(len(marks_dwindling), 0, -1):
-            if mark in mark_range:
-                count += 1
-                marks_dwindling.pop(i)
-
-        return count
-
     # sorry
     def getDistribution(bins: int) -> list[tuple[str, int]]:
         len_marks = len(self._marks)
         if len_marks % bins != 0:
             raise ValueError('List of marks must be divisible by number of bins.')
 
-        marks_dwindling = self._marks.copy()
-        distribution = {}
         bin_size = len_marks // bins
+        marks_dwindling = self._marks.copy()
+        distribution = []
 
         for i in range(0, len_marks, bin_size):
             mark_range = MarkRange(i, bin_size)
-
+            distribution.append(
+                (str(mark_range), mark_range.count(marks_dwindling))
+            )
 
         return distribution
