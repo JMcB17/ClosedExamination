@@ -1,1 +1,1 @@
-git archive --format=zip --output=ClosedExamination.zip HEAD
+git archive --format=zip --output=ClosedExamination.zip HEAD .
