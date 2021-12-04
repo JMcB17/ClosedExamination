@@ -18,8 +18,8 @@ class MarkRange():
         """MUTATES"""
         count = 0
         # reverse iteration for in-place list editing
-        for i in range(len(marks_dwindling), 0, -1):
-            if mark in self:
+        for i in range(len(marks_dwindling) - 1, 0, -1):
+            if marks_dwindling[i] in self:
                 count += 1
                 marks_dwindling.pop(i)
 
@@ -37,6 +37,10 @@ class MarkDistribution:
         self._max = mark_max
         self._marks: list[int] = []
 
+    # mad with power
+    def __len__(self):
+        return self._max - self._min
+
     # sorry
     def addAll(self, student_marks: list[int]):
         for mark in student_marks:
@@ -50,16 +54,19 @@ class MarkDistribution:
 
     # sorry
     def getDistribution(self, bins: int) -> list[tuple[str, int]]:
-        len_marks = len(self._marks)
-        if len_marks % bins != 0:
+        if len(self) % bins != 0:
             raise ValueError('List of marks must be divisible by number of bins.')
 
-        bin_size = len_marks // bins
+        bin_size = len(self) // bins
         marks_dwindling = self._marks.copy()
         distribution = []
 
-        for i in range(0, len_marks, bin_size):
-            mark_range = MarkRange(i, bin_size)
+        # WHY?? why bin sizes not equal for last one??
+        for i in range(0, len(self), bin_size):
+            if i == len(self) - bin_size:
+                mark_range = MarkRange(i, bin_size)
+            else:
+                mark_range = MarkRange(i, bin_size-1)
             distribution.append(
                 (str(mark_range), mark_range.count(marks_dwindling))
             )
