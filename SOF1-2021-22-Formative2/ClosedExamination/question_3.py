@@ -3,6 +3,7 @@ from pathlib import Path
 # support unions!
 from typing import Union
 
+
 def str_find_all(text: str, sub: str) -> list[int]:
     location = 0
     hits = []
@@ -13,6 +14,7 @@ def str_find_all(text: str, sub: str) -> list[int]:
         else:
             location = index
             hits.append(index)
+
 
 # fuck
 def getWordsIndices(filename: Union[str, Path]) -> dict[str, list[int, int]]:
