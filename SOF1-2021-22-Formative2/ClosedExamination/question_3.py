@@ -1,8 +1,9 @@
+from __future__ import annotations
 from pathlib import Path
 # support unions!
-from typing import Dict, List, Union
+from typing import Union
 
-def str_find_all(text: str, sub: str) -> List[int]:
+def str_find_all(text: str, sub: str) -> list[int]:
     location = 0
     hits = []
     while True:
@@ -14,7 +15,7 @@ def str_find_all(text: str, sub: str) -> List[int]:
             hits.append(index)
 
 # fuck
-def getWordsIndices(filename: Union[str, Path]) -> Dict[str, List[int, int]]:
+def getWordsIndices(filename: Union[str, Path]) -> dict[str, list[int, int]]:
     with open(filename, encoding='utf-8') as file:
         text = file.read()
 

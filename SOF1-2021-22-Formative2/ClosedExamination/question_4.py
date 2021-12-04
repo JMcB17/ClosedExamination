@@ -1,7 +1,7 @@
-from typing import Dict, List
+from __future__ import annotations
 
 # camel case... AND recursion? 😳😩
-def rodCutting(prices: Dict[int, int], length: int) -> List[int]:
+def rodCutting(prices: dict[int, int], length: int) -> List[int]:
     if not length:
         return 0
     
