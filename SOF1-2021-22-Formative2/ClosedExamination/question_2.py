@@ -9,3 +9,9 @@ def hammingDistance(word1: str, word2: str) -> int:
             distance += 1
 
     return distance
+    
+
+if __name__ == '__main__':
+    print(hammingDistance('karolin', 'kathrin'))
+    print(hammingDistance('karolin', 'kerstin'))
+    print(hammingDistance('1011101', '1001001'))
