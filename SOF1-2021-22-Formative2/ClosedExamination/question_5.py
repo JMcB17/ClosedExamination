@@ -18,7 +18,7 @@ class MarkRange():
         """MUTATES"""
         count = 0
         # reverse iteration for in-place list editing
-        for i in range(len(marks_dwindling) - 1, 0, -1):
+        for i in range(len(marks_dwindling) - 1, -1, -1):
             if marks_dwindling[i] in self:
                 count += 1
                 marks_dwindling.pop(i)
