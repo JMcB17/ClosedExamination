@@ -1,7 +1,8 @@
 from pathlib import Path
-from typing import Union
+# support unions!
+from typing import Dict, List, Union
 
-def str_find_all(text: str, sub: str) -> list[int]:
+def str_find_all(text: str, sub: str) -> List[int]:
     location = 0
     hits = []
     while True:
@@ -13,7 +14,7 @@ def str_find_all(text: str, sub: str) -> list[int]:
             hits.append(index)
 
 # fuck
-def getWordsIndices(filename: Union[str, Path]) -> dict[str, list[int, int]]:
+def getWordsIndices(filename: Union[str, Path]) -> Dict[str, List[int, int]]:
     with open(filename, encoding='utf-8') as file:
         text = file.read()
 

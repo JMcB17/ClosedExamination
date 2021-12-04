@@ -1,5 +1,5 @@
 # camelcase ew ew ewwww ewwwwwww
-def hammmingDistance(word1: str, word2: str) -> int:
+def hammingDistance(word1: str, word2: str) -> int:
     if len(word1) != len(word2):
         raise ValueError('word1 and word2 must be the same length.')
 

@@ -1,7 +1,8 @@
 # just use matplotlib loll
+from typing import List, Tuple
 
 
-# showing off
+# just showing off
 class MarkRange():
     def __init__(self, min: int, bin_size: int):
         self.min = min
@@ -10,10 +11,10 @@ class MarkRange():
     def __str__(self):
         return f'{self.min}-{self.max}'
 
-    def __contains(self, item):
-        return self.min <= item >= self.max
+    def __contains__(self, item):
+        return self.min <= item <= self.max
 
-    def count(self, marks_dwindling: list[int]) -> int:
+    def count(self, marks_dwindling: List[int]) -> int:
         """MUTATES"""
         count = 0
         # reverse iteration for in-place list editing
@@ -43,7 +44,7 @@ class MarkDistribution:
                 self._marks.append(mark)
 
     # sorry
-    def getDistribution(bins: int) -> list[tuple[str, int]]:
+    def getDistribution(bins: int) -> List[Tuple[str, int]]:
         len_marks = len(self._marks)
         if len_marks % bins != 0:
             raise ValueError('List of marks must be divisible by number of bins.')
