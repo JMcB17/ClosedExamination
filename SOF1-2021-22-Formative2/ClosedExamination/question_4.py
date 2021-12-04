@@ -2,7 +2,8 @@ from __future__ import annotations
 
 
 # camel case... AND recursion? 😳😩
-def rodCutting(prices: dict[int, int], length: int) -> List[int]:
+# memoization? no
+def rodCutting(prices: dict[int, int], length: int) -> list[int]:
     if not length:
         return 0
     

@@ -27,13 +27,18 @@ class MarkRange():
 
 
 class MarkDistribution:
-    def __init__(self, mark_min: int = 0, mark_max: int = 100):
+    def __init__(self, mark_max: int = 100, mark_min: int = 0):
+        if not mark_min < mark_max:
+            raise ValueError(
+                'Maximum value for a mark is less or equal to the minimum value for a mark.'
+            )
+
         self._min = mark_min
         self._max = mark_max
         self._marks: list[int] = []
 
     # sorry
-    def addAll(student_marks: list[int]):
+    def addAll(self, student_marks: list[int]):
         for mark in student_marks:
             if not self._min <= mark <= self._max:
                 raise ValueError(
@@ -44,7 +49,7 @@ class MarkDistribution:
                 self._marks.append(mark)
 
     # sorry
-    def getDistribution(bins: int) -> list[tuple[str, int]]:
+    def getDistribution(self, bins: int) -> list[tuple[str, int]]:
         len_marks = len(self._marks)
         if len_marks % bins != 0:
             raise ValueError('List of marks must be divisible by number of bins.')
