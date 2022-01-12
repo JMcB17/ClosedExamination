@@ -23,11 +23,13 @@ def spheres_collide(sphere_a: Sphere, sphere_b: Sphere) -> bool:
     Returns:
         True if sphere_a collides with sphere_b, False otherwise.
     """
-    return math.sqrt(
+    distance = math.sqrt(
         sum(
             [math.pow(sphere_a[n] - sphere_b[n], 2) for n in range(2)]
         )
     )
+    radii_sum = sphere_a[3] + sphere_b[3]
+    return distance < radii_sum
 
 # saved from camel case by one word function name
 # nvm the args are camel case ooooof
