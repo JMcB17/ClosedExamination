@@ -8,11 +8,25 @@ class Encoding:
 
     def __init__(self, tree_list: list[Optional[str]]):
         self._encoding = tree_list.copy()
-        # todo
-        self._decoding = {}
+        self._decoding = self.make_decoding()
 
         self.decodeText = self.decode_text
         self.encodeText = self.encode_text
+
+    def make_decoding(self) -> dict[str, str]:
+        decoding = {}
+
+        path = ''
+        for index, node in enumerate(self._encoding):
+            if index % 2 == 0:
+                path = path + '0'
+            else:
+                path = path[:-1] + '1'
+
+            if node:
+                decoding[node] = path
+
+        return decoding
 
     def decode_text(self, coded: str) -> str:
         """Decode a binary string with the encoding tree.
@@ -67,3 +81,15 @@ class Encoding:
 
         encoded = ''.join(encoded_list)
         return encoded
+
+
+if __name__ == '__main__':
+    l = [
+        '', '', '', '', '', 'E', 'F', 'A', 'B', 'C', 'D', None, None, None, None, 
+        None, None, None, None, None, None, None, None
+    ]
+    e = Encoding(l)
+    print(e._encoding)
+    print(e._decoding)
+    print(e.decode_text('1100001010'))
+    print(e.encode_text('ACE'))
