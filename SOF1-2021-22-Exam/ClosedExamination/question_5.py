@@ -16,15 +16,24 @@ class Encoding:
     def make_decoding(self) -> dict[str, str]:
         decoding = {}
 
-        path = ''
+        counter_max = 0
+        counter = 0
+        digits = 0
+        spec = ''
         for index, node in enumerate(self._encoding):
-            if index % 2 == 0:
-                path = path + '0'
-            else:
-                path = path[:-1] + '1'
-
             if node:
+                path = spec.format(counter=counter)
                 decoding[node] = path
+
+            if counter == counter_max:
+                counter_max += 1
+                counter_max *= 2
+                counter_max -= 1
+                counter = 0
+                digits += 1
+                spec = f'{{counter:0>{digits}b}}'
+            else:
+                counter += 1
 
         return decoding
 
@@ -87,6 +96,14 @@ class Encoding:
 
 if __name__ == '__main__':
     l = [
+    # path
+    #       0   1   00  01  10   11   000  001  010  011
+    # digits
+    #   0   1   1   2   2   2    2    3    3    3    3
+    # counter
+    #   0   0   1   0   1   2    3    0    1    2    3
+    # max
+    #   0   1   1   3   3   3    3    7    7    7    7
         '', '', '', '', '', 'E', 'F', 'A', 'B', 'C', 'D', None, None, None, None, 
         None, None, None, None, None, None, None, None
     ]
