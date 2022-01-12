@@ -1,9 +1,12 @@
 from __future__ import annotations
 import math
-from itertools import permutations
+from itertools import product
+from typing import Tuple, Set
 
-Sphere = tuple[float]
-SphereObject = set[Sphere]
+
+# idk why future import does not work here
+Sphere = Tuple[float]
+SphereObject = Set[Sphere]
 
 
 # I'm fairly certain this description is the wrong way round:
@@ -46,15 +49,19 @@ def collide(objectA: SphereObject, objectB: SphereObject) -> bool:
     object_a = objectA
     object_b = objectB
 
-    if any([len(s) != 4 for s in object_a + object_b]):
+    if any([len(s) != 4 for s in object_a | object_b]):
         raise ValueError('Length of sphere tuple must be exactly four.')
-    if any([s[3] <= 0 for s in objeobject_actA + object_b]):
+    if any([s[3] <= 0 for s in object_a | object_b]):
         raise ValueError('Radius cannnot be less than or equal to zero.')
 
-    len_object_b = len(object_b)
-    sphere_pairs = [list(zip(p, object_b)) for p in permutations(object_a, len_object_b)]
-    for pair in sphere_pairs:
+    for pair in product(object_a, object_b):
         if spheres_collide(*pair):
             return True
 
     return False
+
+
+if __name__ == '__main__':
+    shape1 = {(2, 2, 2, 3)}
+    shape2 = {(7, 1, 2, 2)}
+    print(collide(shape1, shape2))
