@@ -47,15 +47,17 @@ class Encoding:
 
         index = 0
         for c in coded:
-            node = self._encoding[index]
-            if node:
-                decoded_list.append(node)
-                index = 0
-
             if c == '0':
                 index = 2 * index + 1
             else:
                 index = 2 * index + 2
+
+            node = self._encoding[index]
+            if node:
+                decoded_list.append(node)
+                index = 0
+        if not node:
+            raise ValueError('Coded string did not end on a leaf, must be corrupt.')
 
         decoded = ''.join(decoded_list)
         return decoded
