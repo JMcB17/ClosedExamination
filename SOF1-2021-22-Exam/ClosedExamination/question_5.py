@@ -14,6 +14,11 @@ class Encoding:
         self.encodeText = self.encode_text
 
     def make_decoding(self) -> dict[str, str]:
+        """Reverse self._encoding to get a dict for encoding messages.
+
+        Returns:
+            A dict mapping letters to bit strings
+        """
         decoding = {}
 
         counter_max = 0
