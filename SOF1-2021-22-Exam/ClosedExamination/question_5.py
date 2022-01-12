@@ -4,6 +4,8 @@ from typing import Optional
 BINARY = '01'
 
 class Encoding:
+    """Stores a huffman tree as a list and has methods to encode and decode text with it."""
+
     def __init__(self, tree_list: list[Optional[str]]):
         self._encoding = tree_list.copy()
         # todo
@@ -13,6 +15,17 @@ class Encoding:
         self.encodeText = self.encode_text
 
     def decode_text(self, coded: str) -> str:
+        """Decode a binary string with the encoding tree.
+
+        Args:
+            coded: A valid string of 1s and 0s
+
+        Returns:
+            The decoded plaintext string.
+
+        Raises:
+            ValueError: The string coded must contain only 1s and 0s.        
+        """
         if any(c not in BINARY for c in coded):
             raise ValueError('The string coded must contain only 1s and 0s.')
 
@@ -34,6 +47,17 @@ class Encoding:
         return decoded
 
     def encode_text(self, text: str) -> str:
+        """Encode plaintext into binary string.
+
+        Args:
+            text: Plaintext string
+
+        Returns:
+            Encoded string of 1s and 0s
+
+        Raises:
+            ValueError: Text contains symbols not present in the encoding tree.
+        """
         encoded_list = []
         for c in text:
             e = self._decoding.get(c)
