@@ -8,7 +8,7 @@ from typing import Union
 from invalidfileformatexception import InvalidFileFormatException
 
 ##################  WRITE YOUR CODE HERE ###########################
-VALID_ITEMS = (0 ,1)
+VALID_ITEMS = ('0', '1')
 
 
 def read_adjacency(filename: Union[str, Path]) -> list[list[int]]:
@@ -24,8 +24,13 @@ def read_adjacency(filename: Union[str, Path]) -> list[list[int]]:
     for line in adjacency_matrix:
         if len(line) != len_matrix:
             raise InvalidFileFormatException('Matrix is not square.')
-        if any([i not in VALID_ITEMS for i in line]):
-            raise InvalidFileFormatException('File contains values other than 0s and 1s.')
+        for index, item in enumerate(line):
+            item = item.strip()
+
+            if item not in VALID_ITEMS:
+                raise InvalidFileFormatException('File contains values other than 0s and 1s.')
+            else:
+                line[index] = int(item)
 
     return adjacency_matrix
 
