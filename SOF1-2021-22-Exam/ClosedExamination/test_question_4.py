@@ -1,4 +1,6 @@
 import unittest
+from pathlib import Path
+
 from question_4 import readAdjacency
 from invalidfileformatexception import InvalidFileFormatException
 
@@ -12,14 +14,14 @@ class TestQuestion4(unittest.TestCase):
                   [0, 0, 0, 0],
                   [1, 1, 0, 1],
                   [0, 1, 0, 1]]
-        self.assertEqual(matrix, readAdjacency('./data/validmatrix.csv'))
+        self.assertEqual(matrix, readAdjacency(str(Path('./data/validmatrix.csv'))))
 
         matrix = [[1, 1, 1, 1, 1],
                   [1, 1, 1, 1, 1],
                   [1, 1, 1, 1, 1],
                   [1, 1, 1, 1, 1],
                   [1, 1, 1, 1, 1]]
-        self.assertEqual(matrix, readAdjacency('./data/validmatrix2.csv'))
+        self.assertEqual(matrix, readAdjacency(str(Path('./data/validmatrix2.csv'))))
 
 
     def testMissingFile(self):
@@ -28,7 +30,7 @@ class TestQuestion4(unittest.TestCase):
         """
         self.assertRaises(FileNotFoundError,  
                           readAdjacency, 
-                          './data/missingfile.csv')
+                          str(Path('./data/missingfile.csv')))
 
 
     def testBlankSpace(self):
@@ -47,7 +49,7 @@ class TestQuestion4(unittest.TestCase):
         """
         self.assertRaises(InvalidFileFormatException,  
                           readAdjacency, 
-                          './data/invalidvalue.csv')
+                          str(Path('./data/invalidvalue.csv')))
 
 
     def testTooManyRows(self):
@@ -56,7 +58,7 @@ class TestQuestion4(unittest.TestCase):
         """
         self.assertRaises(InvalidFileFormatException,  
                           readAdjacency, 
-                          './data/toomanyrows.csv')
+                          str(Path('./data/toomanyrows.csv')))
 
 
     def testTooFewRows(self):
@@ -65,7 +67,7 @@ class TestQuestion4(unittest.TestCase):
         """
         self.assertRaises(InvalidFileFormatException,  
                           readAdjacency, 
-                          './data/toofewrows.csv')
+                          str(Path('./data/toofewrows.csv')))
 
 
     def testMissingValue(self):
@@ -74,7 +76,7 @@ class TestQuestion4(unittest.TestCase):
         """
         self.assertRaises(InvalidFileFormatException,  
                           readAdjacency, 
-                          './data/missingvalue.csv')
+                          str(Path('./data/missingvalue.csv')))
 
 
 if __name__ == '__main__':
