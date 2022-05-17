@@ -1,5 +1,6 @@
-*-answers/
+*answers/
 *.zip
+*.bundle
 *.pdf
 *.lnk
 *.url
