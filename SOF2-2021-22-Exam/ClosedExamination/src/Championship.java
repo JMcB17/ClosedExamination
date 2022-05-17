@@ -35,7 +35,7 @@ public class Championship {
      * 
      * @param team The name of the team from which we want to retrieve the score
      * @return the TeamScore instance of the team passed in the parameter. Returns
-     *         null is the team does not take part in the competition.
+     *         null if the team does not take part in the competition.
      */
     public TeamScore getTeamScore(String team) {
         for (TeamScore score : table) {
