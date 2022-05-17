@@ -18,32 +18,32 @@ public class TestQuestion1_ia {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidHomePoints() {
-		MatchScore score = new MatchScore("France", "England", -1, 13, 3, 1);
+		new MatchScore("France", "England", -1, 13, 3, 1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidAwayPoints() {
-		MatchScore score = new MatchScore("France", "England", 25, -1, 3, 1);
+		new MatchScore("France", "England", 25, -1, 3, 1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidHomeTries() {
-		MatchScore score = new MatchScore("France", "England", 25, 13, -3, 1);
+		new MatchScore("France", "England", 25, 13, -3, 1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidAwayTriess() {
-		MatchScore score = new MatchScore("France", "England", 25, 13, 3, -1);
+		new MatchScore("France", "England", 25, 13, 3, -1);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testConstructorInvalidHomeTeam() {
-		MatchScore score = new MatchScore(null, "England", 25, 13, 3, 1);
+		new MatchScore(null, "England", 25, 13, 3, 1);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testConstructorInvalidAwayTeam() {
-		MatchScore score = new MatchScore("France", null, 25, 13, 3, 1);
+		new MatchScore("France", null, 25, 13, 3, 1);
 	}
 
 }

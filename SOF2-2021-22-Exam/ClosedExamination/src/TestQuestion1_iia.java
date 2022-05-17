@@ -19,7 +19,7 @@ public class TestQuestion1_iia {
 
 	@Test(expected = NullPointerException.class)
 	public void testConstructorInvalidTeamName() {
-		TeamScore score = new TeamScore(null);
+		new TeamScore(null);
 	}
 
 	@Test
