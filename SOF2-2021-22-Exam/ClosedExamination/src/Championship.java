@@ -47,17 +47,11 @@ public class Championship {
         return null;
     }
 
+    /////////////// ADD YOUR CODE BELOW ///////////////
     public boolean addMatch(MatchScore match) {
         // check that both teams are in the championship
-        TeamScore homeTeam  = null;
-        TeamScore awayTeam = null;
-        for (TeamScore team: table) {
-            if (homeTeam == null && team.name == match.homeTeam) {
-                homeTeam = team;
-            } else if (awayTeam == null && team.name == match.awayTeam) {
-                awayTeam = team;
-            }
-        }
+        TeamScore homeTeam  = getTeamScore(match.homeTeam);
+        TeamScore awayTeam  = getTeamScore(match.awayTeam);
         if (homeTeam == null || awayTeam == null) {
             return false;
         }
