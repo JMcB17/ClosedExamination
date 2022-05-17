@@ -10,7 +10,7 @@ public class Championship {
     /**
      * Construct an instance of Championship given a set of teams' name.
      * 
-     * @param teams The sset of team taking part in the competition.
+     * @param teams The set of team taking part in the competition.
      * @throws IllegalArgumentException is the parameter teams is null or is
      *                                  empty set.
      */
