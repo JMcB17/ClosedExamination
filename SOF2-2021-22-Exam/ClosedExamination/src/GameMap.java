@@ -45,12 +45,19 @@ public class GameMap {
     }
 
     /////////////// ADD YOUR CODE BELOW ///////////////
-    private Position getClosestMatch(int[][] boardDistance, int tile, boolean match) {
+    private Position getClosestMatch(
+        int[][] boardDistance, boolean[][] boardVisited,
+        boolean visited, int tile, boolean match
+    ) {
         Position closest = new Position(0, 0, INF);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int currentDistance = boardDistance[x][y];
-                if ((board[x][y] == tile) == match && currentDistance < closest.distance) {
+                if (
+                    boardVisited[x][y] == visited
+                    && (board[x][y] == tile) == match
+                    && currentDistance < closest.distance
+                ) {
                     closest.setX(x);
                     closest.setY(y);
                     closest.setDistance(currentDistance);
@@ -63,7 +70,7 @@ public class GameMap {
     private boolean allVisited(boolean[][] boardVisited) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (!boardVisited[x][y]) {
+                if (!boardVisited[x][y] && board[x][y] != OBSTACLE) {
                     return false;
                 }
             }
@@ -86,7 +93,8 @@ public class GameMap {
         int currentDistance = 1;
         
         // loop
-        while (true) {
+        boolean someUnvisited = true;
+        while (someUnvisited) {
             // process neighbours
             for (int xOffset = -1; xOffset <= 1; xOffset++){
                 for (int yOffset = -1; yOffset <= 1; yOffset++) {
@@ -105,17 +113,22 @@ public class GameMap {
             }
 
             boardVisited[x][y] = true;
-            Position closestUnvisited = getClosestMatch(boardDistance, OBSTACLE, false);
+            Position closestUnvisited = getClosestMatch(
+                boardDistance, boardVisited, false, OBSTACLE, false
+            );
             x = closestUnvisited.getX();
             y = closestUnvisited.getY();
-            currentDistance = closestUnvisited.getDistance() + 1;
-            if (closestUnvisited.distance == INF || allVisited(boardVisited)) {
-                break;
+            currentDistance = closestUnvisited.getDistance();
+            if (currentDistance == INF || allVisited(boardVisited)) {
+                someUnvisited = false;
             }
+            currentDistance += 1;
         }
 
         // return closest
-        Position closestResource = getClosestMatch(boardDistance, RESOURCE, true);
+        Position closestResource = getClosestMatch(
+            boardDistance, boardVisited, true, RESOURCE, true
+        );
         if (closestResource.getDistance() == INF) {
             return null;
         }
