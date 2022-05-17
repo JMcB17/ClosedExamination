@@ -36,7 +36,8 @@ public class MatchScore {
     }
 
 
-    
+    // very simple methods and introspection, therefore one-line javadocs
+    // why did you make this one the javadoc exercise
     /** Get the name of the home team as a String. */
     public String getHomeTeam() {
         return homeTeam;

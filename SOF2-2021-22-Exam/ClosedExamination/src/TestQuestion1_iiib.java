@@ -27,6 +27,7 @@ public class TestQuestion1_iiib {
         triNations.table.add(createTeamScore("New Zealand", 1, 1, 0, 6, 5, 5));
 
         List<TeamScore> ranking = triNations.getRanking();
+        // why is this not assertEquals
         assertTrue(equals(ranking.get(0), createTeamScore("South Africa", 2, 0, 0, 8, 3, 13)));
         assertTrue(equals(ranking.get(1), createTeamScore("New Zealand", 1, 1, 0, 6, 5, 5)));
         assertTrue(equals(ranking.get(2), createTeamScore("Australia", 0, 2, 0, 1, 1, -18)));

@@ -77,6 +77,7 @@ public class Championship {
 
     public List<TeamScore> getRanking() {
         Collections.sort(table);
+        Collections.reverse(table);
         return table;
     }
 }

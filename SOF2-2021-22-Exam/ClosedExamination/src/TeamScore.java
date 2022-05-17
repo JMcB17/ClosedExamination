@@ -21,7 +21,7 @@ class TeamScore implements Comparable<TeamScore> {
     public int compareTo(TeamScore other) {
         int[] ours = {points, pointDiff, triesScored};
         int[] theirs = {other.points, other.pointDiff, other.triesScored};
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 3; i++){
             if (ours[i] == theirs[i]) {
                 continue;
             } else {
