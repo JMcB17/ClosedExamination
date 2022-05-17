@@ -46,6 +46,37 @@ public class Championship {
         return null;
     }
 
-    /////////////// ADD YOUR CODE BELOW ///////////////
+    public boolean addMatch(MatchScore match) {
+        // check that both teams are in the championship
+        TeamScore homeTeam  = null;
+        TeamScore awayTeam = null;
+        for (TeamScore team: table) {
+            if (homeTeam == null && team.name == match.homeTeam) {
+                homeTeam = team;
+            } else if (awayTeam == null && team.name == match.awayTeam) {
+                awayTeam = team;
+            }
+        }
+        if (homeTeam == null || awayTeam == null) {
+            return false;
+        }
 
+        // check that match has not already been entered
+        // (why?? the structure and naming of this design is hella annoying)
+        for (MatchScore enteredMatch : completedMatches) {
+            if (
+                match.homeTeam == enteredMatch.homeTeam
+                && match.awayTeam == enteredMatch.awayTeam
+                ) {
+                return false;
+            }
+        }
+
+        // ok to enter match
+        completedMatches.add(match);
+        homeTeam.addMatch(match);
+        awayTeam.addMatch(match);
+
+        return true;
+    }
 }
