@@ -49,7 +49,18 @@ public class GameMap {
 
     /////////////// ADD YOUR CODE BELOW ///////////////
     public Position getClosestResource(int x, int y) {
-        // TODO
-        return null;
+        Position closest;
+
+        int startTile = board[x][y];
+        if (startTile == OBSTACLE) {
+            closest = null;
+        } else if (startTile == RESOURCE) {
+            closest = new Position(x, y, 0);
+        } else {
+            // TODO
+            closest = null;
+        }
+
+        return closest;
     }
 }
