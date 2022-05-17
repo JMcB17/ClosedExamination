@@ -27,26 +27,15 @@ class TeamScore implements Comparable {
 
         TeamScore otherTeam = (TeamScore) object;
 
-        if (otherTeam.points < points) {
-            return 1;
+        int[] ours = {points, pointDiff, triesScored};
+        int[] theirs = {otherTeam.points, otherTeam.pointDiff, otherTeam.triesScored};
+        for (int i = 0; i < 2; i++){
+            if (ours[i] == theirs[i]) {
+                continue;
+            } else {
+                return ours[i] < theirs[i] ? -1 : 1;
+            }
         }
-        else if (points < otherTeam.points) {
-            return -1;
-        }
-        else if (otherTeam.pointDiff < pointDiff) {
-            return 1;
-        }
-        else if (pointDiff < otherTeam.pointDiff) {
-            return -1;
-        }
-        else if (otherTeam.triesScored < triesScored) {
-            return 1;
-        }
-        else if (pointDiff < otherTeam.pointDiff) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
+        return 0;
     }
 }
