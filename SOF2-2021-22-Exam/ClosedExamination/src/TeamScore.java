@@ -30,4 +30,45 @@ class TeamScore implements Comparable<TeamScore> {
         }
         return 0;
     }
+
+    private boolean addMatchValues(int matchPoints, int matchTries, int otherPoints) {
+        triesScored += matchTries;
+
+        int matchPointDiff = matchPoints - otherPoints;
+        pointDiff += matchPointDiff;
+
+        if (otherPoints < matchPoints) {
+            // win
+            wins += 1;
+            points += 4;
+        } else if (matchPoints < otherPoints) {
+            // loss
+            // |  ||
+            // || |_
+            losses += 1;
+            if (-7 <= matchPointDiff) {
+                points += 1;
+            }
+        } else {
+            // draw
+            draws += 1;
+            points += 2;
+        }
+        if (4 <= matchTries) {
+            // you tried
+            points += 1;
+        }
+
+        return true;
+    }
+
+    public boolean addMatch(MatchScore match) {
+        if (match.homeTeam == name) {
+            return addMatchValues(match.homePoints, match.homeTries, match.awayPoints);
+        } else if (match.awayTeam == name) {
+            return addMatchValues(match.awayPoints, match.awayTries, match.homePoints);
+        } else {
+            return false;
+        }
+    }
 }
