@@ -56,7 +56,7 @@ public class GameMap {
                 if (
                     boardVisited[x][y] == visited
                     && (board[x][y] == tile) == match
-                    && currentDistance < closest.distance
+                    && currentDistance < closest.getDistance()
                 ) {
                     closest.setX(x);
                     closest.setY(y);
@@ -96,23 +96,38 @@ public class GameMap {
         boolean someUnvisited = true;
         while (someUnvisited) {
             // process neighbours
-            for (int xOffset = -1; xOffset <= 1; xOffset++){
-                for (int yOffset = -1; yOffset <= 1; yOffset++) {
-                    int x2 = x + xOffset;
-                    if (!(0 <= x2 && x2 <= width)) {
-                        continue;
-                    }
-                    int y2 = y = yOffset;
-                    if (!(0 <= y2 && y2 <= height)) {
-                        continue;
-                    }
-                    if (!boardVisited[x2][y2] && board[x2][y2] != OBSTACLE) {
-                        boardDistance[x2][y2] = currentDistance;
-                    }
+            int[] offsets = {-1, 1};
+            // some duplicated code huh. what ever
+            for (int off : offsets){
+                int x2 = x + off;
+                if (!(0 <= x2 && x2 < width)) {
+                    continue;
+                }
+                if (
+                    !boardVisited[x2][y]
+                    && board[x2][y] != OBSTACLE
+                    && currentDistance < boardDistance[x2][y]
+                ) {
+                    boardDistance[x2][y] = currentDistance;
                 }
             }
-
+            for (int off : offsets){
+                int y2 = y + off;
+                if (!(0 <= y2 && y2 < height)) {
+                    continue;
+                }
+                if (
+                    !boardVisited[x][y2]
+                    && board[x][y2] != OBSTACLE
+                    && currentDistance < boardDistance[x][y2]
+                ) {
+                    boardDistance[x][y2] = currentDistance;
+                }
+            }
+            // end duplicated code
             boardVisited[x][y] = true;
+
+            // find the closest unvisited, check if done
             Position closestUnvisited = getClosestMatch(
                 boardDistance, boardVisited, false, OBSTACLE, false
             );
