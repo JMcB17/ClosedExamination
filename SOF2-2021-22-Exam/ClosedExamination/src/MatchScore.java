@@ -17,10 +17,10 @@ public class MatchScore {
         String[] teams = {homeTeam, awayTeam};
         for (String t : teams) {
             if (t == null) {
-                throw new NullPointerException("Teams cannot be null.");
+                throw new NullPointerException("Team names cannot be null.");
             }
         }
-        int[] nums = {homePoints, awayPoints, homeTries, awayTries}
+        int[] nums = {homePoints, awayPoints, homeTries, awayTries};
         for (int n: nums) {
             if (n < 0) {
                 throw new IllegalArgumentException("Points and tries cannot be negative.");
