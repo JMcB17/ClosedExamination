@@ -1,4 +1,4 @@
-class TeamScore implements Comparable {
+class TeamScore implements Comparable<TeamScore> {
     String name;
     int wins;
     int losses;
@@ -17,18 +17,10 @@ class TeamScore implements Comparable {
     }
 
     // https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html
-    public int compareTo(Object object) {
-        if (object == null) {
-            throw new NullPointerException("Team to compare cannot be null.");
-        }
-        if (!(object instanceof TeamScore)) {
-            throw new ClassCastException("Can only compare to another TeamScore object.")
-        }
-
-        TeamScore otherTeam = (TeamScore) object;
-
+    @Override
+    public int compareTo(TeamScore other) {
         int[] ours = {points, pointDiff, triesScored};
-        int[] theirs = {otherTeam.points, otherTeam.pointDiff, otherTeam.triesScored};
+        int[] theirs = {other.points, other.pointDiff, other.triesScored};
         for (int i = 0; i < 2; i++){
             if (ours[i] == theirs[i]) {
                 continue;
