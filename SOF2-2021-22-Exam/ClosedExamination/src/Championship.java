@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -78,5 +79,10 @@ public class Championship {
         awayTeam.addMatch(match);
 
         return true;
+    }
+
+    public List<TeamScore> getRanking() {
+        Collections.sort(table);
+        return table;
     }
 }
