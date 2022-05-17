@@ -48,5 +48,8 @@ public class GameMap {
     }
 
     /////////////// ADD YOUR CODE BELOW ///////////////
-
+    public Position getClosestResource(int x, int y) {
+        // TODO
+        return null;
+    }
 }
