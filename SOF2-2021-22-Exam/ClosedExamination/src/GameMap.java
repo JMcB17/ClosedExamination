@@ -1,8 +1,9 @@
 public class GameMap {
-    // Public constant used to simplify the understanding of the code.
-    public static final int EMPTY = 0;
-    public static final int OBSTACLE = 1;
-    public static final int RESOURCE = 2;
+    enum Tile {
+        EMPTY,
+        OBSTACLE,
+        RESOURCE
+    }
 
     private static final int INF = Integer.MAX_VALUE;
 
@@ -12,7 +13,7 @@ public class GameMap {
      * obstacle, and a value of 2 means that a resource is contained within
      * that cell.
      */
-    int[][] board;
+    Tile[][] board;
 
     /**
      * The dimension fo the board.
@@ -31,7 +32,7 @@ public class GameMap {
     public GameMap(int[][] board) {
         this.width = board.length;
         this.height = board[0].length;
-        this.board = new int[width][height];
+        this.board = new Tile[width][height];
 
         // BE CAREFULL OF THE REPRESENTATION USED HERE, the ROWS are
         // the Y-COORDINATES and the COLUMNS are the X-COORDINATES.
@@ -39,15 +40,28 @@ public class GameMap {
         // must make the call board[0][1].
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[r].length; c++) {
-                this.board[c][r] = board[r][c];
+                this.board[c][r] = intToTile(board[r][c]);
             }
         }
     }
 
     /////////////// ADD YOUR CODE BELOW ///////////////
+    private Tile intToTile(int tile) {
+        switch (tile) {
+            case 0:
+                return Tile.EMPTY;
+            case 1:
+                return Tile.OBSTACLE;
+            case 2:
+                return Tile.RESOURCE;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
     private Position getClosestMatch(
         int[][] boardDistance, boolean[][] boardVisited,
-        boolean visited, int tile, boolean match
+        boolean visited, Tile tile, boolean match
     ) {
         Position closest = new Position(0, 0, INF);
         for (int y = 0; y < height; y++) {
@@ -70,7 +84,7 @@ public class GameMap {
     private boolean allVisited(boolean[][] boardVisited) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (!boardVisited[x][y] && board[x][y] != OBSTACLE) {
+                if (!boardVisited[x][y] && board[x][y] != Tile.OBSTACLE) {
                     return false;
                 }
             }
@@ -105,7 +119,7 @@ public class GameMap {
                 }
                 if (
                     !boardVisited[x2][y]
-                    && board[x2][y] != OBSTACLE
+                    && board[x2][y] != Tile.OBSTACLE
                     && currentDistance < boardDistance[x2][y]
                 ) {
                     boardDistance[x2][y] = currentDistance;
@@ -118,7 +132,7 @@ public class GameMap {
                 }
                 if (
                     !boardVisited[x][y2]
-                    && board[x][y2] != OBSTACLE
+                    && board[x][y2] != Tile.OBSTACLE
                     && currentDistance < boardDistance[x][y2]
                 ) {
                     boardDistance[x][y2] = currentDistance;
@@ -129,7 +143,7 @@ public class GameMap {
 
             // find the closest unvisited, check if done
             Position closestUnvisited = getClosestMatch(
-                boardDistance, boardVisited, false, OBSTACLE, false
+                boardDistance, boardVisited, false, Tile.OBSTACLE, false
             );
             x = closestUnvisited.getX();
             y = closestUnvisited.getY();
@@ -142,7 +156,7 @@ public class GameMap {
 
         // return closest
         Position closestResource = getClosestMatch(
-            boardDistance, boardVisited, true, RESOURCE, true
+            boardDistance, boardVisited, true, Tile.RESOURCE, true
         );
         if (closestResource.getDistance() == INF) {
             return null;
@@ -153,10 +167,10 @@ public class GameMap {
     public Position getClosestResource(int x, int y) {
         Position closest;
 
-        int startTile = board[x][y];
-        if (startTile == OBSTACLE) {
+        Tile startTile = board[x][y];
+        if (startTile == Tile.OBSTACLE) {
             closest = null;
-        } else if (startTile == RESOURCE) {
+        } else if (startTile == Tile.RESOURCE) {
             closest = new Position(x, y, 0);
         } else {
             closest = dijkstra(x, y);
